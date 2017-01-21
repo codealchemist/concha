@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>remote-shell test</title>
+
+    <style>
+      body {
+        font: 14px helvetica;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>REMOTE SHELL TEST</h1>
+    <p>Open the browser console and try logging something from the node cli.</p>
+
+    <pre>
+      node index.js
+      listening on *:3000
+      a user connected
+      JSRC> log('yeah!')
+      yeah!
+      JSRC> test()
+      ROCK!
+    </pre>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      socket.on('connection', (data) => {
+        console.log('connection established')
+      })
+
+      socket.on('command', (command) => {
+        // console.log('got command', command)
+        const f = new Function(`return ${command}`)
+        socket.emit('response', f())
+      })
+
+      function test(params) {
+        console.log('-- test called:', params)
+        return 'ROCK!'
+      }
+
+      const log = (value) => {
+        console.log(value)
+        return value
+      }
+    </script>
+  </body>
+</html>

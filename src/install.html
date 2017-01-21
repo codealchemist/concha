@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bookmarklet Installer</title>
+        <style>
+            body {
+                background: #eee;
+            }
+        
+            h1 {
+                font: normal normal normal 34px arial;
+            }
+        
+            .container {
+                position:fixed; margin: auto; top: 20px; left:0; right:0; padding: 20px; width: 400px; border: 1px solid #ccc; background: white; border-radius: 5px; color: black;
+            }
+            
+            .big-text {
+                font: normal normal normal 20px arial;
+            }
+            
+            a {
+                text-decoration: none;
+                border: 1px solid lightblue;
+                border-radius: 5px;
+                padding: 10px;
+                color: black;
+                background: #eee;
+            }
+            
+            a:hover {
+                background: lightblue;
+                border-color: #888;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1><strong>Install</strong> by dragging the following link to your bookmarks bar</h1>
+            <a id="install-link" class="big-text">
+                Concha
+            </a>
+        </div>
+        
+        <script>
+            const link = document.getElementById('install-link')
+            const scriptUrl='http://localhost:7331/inject'
+
+            function inject (src, callback) {
+              const script = document.createElement('script');
+              script.type = 'text/javascript';
+              script.async = true;
+              script.onload = function() {
+                if (typeof callback === 'function') callback();
+              };
+              script.src = src;
+              document.getElementsByTagName('head')[0].appendChild(script);
+            }
+            
+            link.href = `javascript:(${inject.toString()})('${scriptUrl}')`
+        </script>
+    </body>
+</html>
