@@ -8,6 +8,11 @@
  Your browser's JavaScript console on the shell.
  Press the TAB key to display all available auto completions.
 ```
+This is an example of how to use *concha* to remotely control Deezer from the shell using the included deezer plugin:
+
+![screenshot](https://cldup.com/47gP0ayXnt.gif)
+
+You can create your own plugins too!
 
 ## Install
 `npm install -g concha`
