@@ -19,6 +19,10 @@ class deezerConchaPlugin {
     window.info = this.info
     window.playFavorite = this.playFavorite
     window.flow = this.flow
+    window.isFavorite = this.isFavorite
+    window.addFavorite = this.addFavorite
+    window.removeFavorite = this.removeFavorite
+    window.share = this.share
   }
 
   play () {
@@ -154,5 +158,31 @@ class deezerConchaPlugin {
       $('.btn-play')[0].click()
     }, 3000)
     return 'Flow...'
+  }
+
+  isFavorite () {
+    if (!$('.icon-love')[0].className.match('active')) {
+      return 'Yes.'
+    }
+    return 'No.'
+  }
+
+  addFavorite () {
+    if (!$('.icon-love')[0].className.match('active')) {
+      $('.icon-love')[0].click()
+    }
+    return 'Added to favorites.'
+  }
+
+  removeFavorite () {
+    if ($('.icon-love')[0].className.match('active')) {
+      $('.icon-love')[0].click()
+    }
+    return 'Removed from favorites.'
+  }
+
+  share () {
+    const trackId = dzPlayer.getCurrentSong().SNG_ID
+    return `http://www.deezer.com/track/${trackId}`
   }
 }

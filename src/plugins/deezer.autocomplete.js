@@ -17,5 +17,9 @@ module.exports = [
   'getSongTitle()',
   'info()',
   'playFavorite()',
-  'flow()'
+  'flow()',
+  'isFavorite()',
+  'addFavorite()',
+  'removeFavorite()',
+  'share()'
 ]
