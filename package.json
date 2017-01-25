@@ -23,6 +23,10 @@
     "mock-stdin": "^0.3.1",
     "standard": "^8.6.0"
   },
+  "repository": { 
+    "type" : "git",
+    "url" : "https://github.com/codealchemist/concha.git"
+  },
   "standard": {
     "ignore": [
       "src/plugins/*",
