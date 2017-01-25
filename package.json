@@ -1,6 +1,6 @@
 {
   "name": "concha",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Your browser's JavaScript console on the shell.",
   "main": "index.js",
   "scripts": {
