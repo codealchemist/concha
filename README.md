@@ -99,9 +99,9 @@ module.exports = [
 
 1- Start `concha`
 
-2- Open [http://localhost:7331/install](http://localhost:7331/install)
+2- Open [http://localhost:7331](http://localhost:7331)
 
-3- Type `test()` in the cli
+3- Type `concha.test()` in the cli
 
 Your shell is now accessing your browser's console.
 Enjoy!
