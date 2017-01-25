@@ -2,7 +2,7 @@
 var concha = {plugins: {}};
 
 (function () {
-  var serverUrl = `http://${location.host}`
+  var serverUrl = `http://<%= host %>`
 
   // inject socket.io
   inject(`${serverUrl}/socket.io/socket.io.js`, init)

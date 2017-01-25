@@ -1,7 +1,7 @@
 'use strict'
 const path = require('path')
 
-module.exports = function (app) {
+module.exports = function (app, host) {
   app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'test.html'))
   })
@@ -11,7 +11,8 @@ module.exports = function (app) {
   })
 
   app.get('/inject', function (req, res) {
-    res.sendFile(path.join(__dirname, 'inject.js'))
+    const file = path.join(__dirname, 'inject')
+    res.render(file, {host: host})
   })
 
   app.get('/plugin/:pluginName', function (req, res) {

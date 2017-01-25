@@ -2,6 +2,7 @@
 'use strict'
 
 const app = require('express')()
+const ejs = require('ejs')
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const readline = require('readline')
@@ -12,8 +13,15 @@ const completer = require('./completer')
 const ip = require('ip')
 
 module.exports = function (input = process.stdin, output = process.stdout) {
+  app.set('view engine', 'js')
+  app.engine('js', ejs.renderFile)
+  app.set('views', __dirname)
+
+  const localIp = ip.address()
+  const host = `${localIp}:${config.serverPort}`
+
   // set routes
-  routes(app)
+  routes(app, host)
 
   // let plugins define their own commands for auto complete
   loadPluginsAutocomplete()
@@ -58,7 +66,6 @@ module.exports = function (input = process.stdin, output = process.stdout) {
   })
 
   // start server
-  const localIp = ip.address()
   http.listen(config.serverPort, function () {
     console.log(`
       LOCAL ACCESS
@@ -66,8 +73,8 @@ module.exports = function (input = process.stdin, output = process.stdout) {
       - install http://localhost:${config.serverPort}/install
 
       LAN ACCESS
-      - listening on http://${localIp}:${config.serverPort}
-      - install http://${localIp}:${config.serverPort}/install
+      - listening on http://${host}
+      - install http://${host}/install
     `)
   })
 
