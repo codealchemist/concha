@@ -16,7 +16,6 @@ module.exports = function (input = process.stdin, output = process.stdout) {
 
   // let plugins define their own commands for auto complete
   loadPluginsAutocomplete()
-  
 
   // set command line interface
   const rl = readline.createInterface({
@@ -62,7 +61,7 @@ module.exports = function (input = process.stdin, output = process.stdout) {
     console.log(`- listening on *:${config.serverPort}`)
   })
 
-  function loadPluginsAutocomplete() {
+  function loadPluginsAutocomplete () {
     if (config.plugins) {
       // load autocompletions for each plugin
       config.plugins.map((plugin) => {
