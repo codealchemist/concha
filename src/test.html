@@ -10,16 +10,13 @@
     </style>
   </head>
   <body>
-    <h1>REMOTE SHELL TEST</h1>
+    <h1>TEST YOUR CONCHA</h1>
     <p>Open the browser console and try logging something from the node cli.</p>
 
     <pre>
-      node index.js
-      listening on *:3000
-      a user connected
-      JSRC> log('yeah!')
+      concha> concha.log('yeah!')
       yeah!
-      JSRC> test()
+      concha> concha.test()
       ROCK!
     </pre>
 
@@ -36,14 +33,15 @@
         socket.emit('response', f())
       })
 
-      function test(params) {
-        console.log('-- test called:', params)
-        return 'ROCK!'
-      }
-
-      const log = (value) => {
-        console.log(value)
-        return value
+      const concha = {
+        test: (params) => {
+          console.log('-- test called:', params)
+          return 'ROCK!'
+        },
+        log: (value) => {
+          console.log(value)
+          return value
+        }
       }
     </script>
   </body>

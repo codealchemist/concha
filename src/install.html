@@ -44,7 +44,7 @@
         
         <script>
             const link = document.getElementById('install-link')
-            const scriptUrl='http://localhost:7331/inject'
+            const scriptUrl=`http://${location.host}/inject`
 
             function inject (src, callback) {
               const script = document.createElement('script');

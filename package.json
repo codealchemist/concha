@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.14.0",
+    "ip": "^1.1.4",
     "socket.io": "^1.7.2"
   },
   "devDependencies": {
@@ -23,9 +24,9 @@
     "mock-stdin": "^0.3.1",
     "standard": "^8.6.0"
   },
-  "repository": { 
-    "type" : "git",
-    "url" : "https://github.com/codealchemist/concha.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codealchemist/concha.git"
   },
   "standard": {
     "ignore": [

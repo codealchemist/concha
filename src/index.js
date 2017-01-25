@@ -9,6 +9,7 @@ const routes = require('./routes')
 const path = require('path')
 const config = require('./config')
 const completer = require('./completer')
+const ip = require('ip')
 
 module.exports = function (input = process.stdin, output = process.stdout) {
   // set routes
@@ -57,8 +58,17 @@ module.exports = function (input = process.stdin, output = process.stdout) {
   })
 
   // start server
+  const localIp = ip.address()
   http.listen(config.serverPort, function () {
-    console.log(`- listening on *:${config.serverPort}`)
+    console.log(`
+      LOCAL ACCESS
+      - listening on http://localhost:${config.serverPort}
+      - install http://localhost:${config.serverPort}/install
+
+      LAN ACCESS
+      - listening on http://${localIp}:${config.serverPort}
+      - install http://${localIp}:${config.serverPort}/install
+    `)
   })
 
   function loadPluginsAutocomplete () {
