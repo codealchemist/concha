@@ -2,7 +2,7 @@
 var concha = {plugins: {}};
 
 (function () {
-  var serverUrl = `http://<%= host %>`
+  var serverUrl = `https://<%= host %>`
 
   // inject socket.io
   inject(`${serverUrl}/socket.io/socket.io.js`, init)
@@ -19,7 +19,7 @@ var concha = {plugins: {}};
   }
 
   function init () {
-    var socket = io.connect(serverUrl)
+    var socket = io.connect(serverUrl, {secure: true})
     socket.on('connection', () => {
       console.info('concha: connection established')
     })

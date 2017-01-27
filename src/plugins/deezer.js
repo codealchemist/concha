@@ -1,28 +1,29 @@
 class deezerConchaPlugin {
   constructor () {
     // use globals
-    window.play = this.play
-    window.pause = this.pause
-    window.next = this.next
-    window.prev = this.prev
-    window.setVolume = this.setVolume
-    window.mute = this.mute
-    window.unmute = this.unmute
-    window.repeatOff = this.repeatOff
-    window.repeatAll = this.repeatAll
-    window.repeatOne = this.repeatOne
-    window.shuffleOn = this.shuffleOn
-    window.shuffleOff = this.shuffleOff
-    window.getAlbumTitle = this.getAlbumTitle
-    window.getArtistName = this.getArtistName
-    window.getSongTitle = this.getSongTitle
-    window.info = this.info
-    window.playFavorite = this.playFavorite
-    window.flow = this.flow
-    window.isFavorite = this.isFavorite
-    window.addFavorite = this.addFavorite
-    window.removeFavorite = this.removeFavorite
-    window.share = this.share
+    window.dz = {}
+    window.dz.play = this.play
+    window.dz.pause = this.pause
+    window.dz.next = this.next
+    window.dz.prev = this.prev
+    window.dz.setVolume = this.setVolume
+    window.dz.mute = this.mute
+    window.dz.unmute = this.unmute
+    window.dz.repeatOff = this.repeatOff
+    window.dz.repeatAll = this.repeatAll
+    window.dz.repeatOne = this.repeatOne
+    window.dz.shuffleOn = this.shuffleOn
+    window.dz.shuffleOff = this.shuffleOff
+    window.dz.getAlbumTitle = this.getAlbumTitle
+    window.dz.getArtistName = this.getArtistName
+    window.dz.getSongTitle = this.getSongTitle
+    window.dz.info = this.info
+    window.dz.playFavorite = this.playFavorite
+    window.dz.flow = this.flow
+    window.dz.isFavorite = this.isFavorite
+    window.dz.addFavorite = this.addFavorite
+    window.dz.removeFavorite = this.removeFavorite
+    window.dz.share = this.share
   }
 
   play () {

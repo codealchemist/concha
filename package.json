@@ -6,7 +6,8 @@
   "scripts": {
     "test": "standard && mocha --recursive --reporter spec",
     "test-watch": "standard && mocha --watch --recursive --reporter spec",
-    "start": "node bin/index.js"
+    "start": "node bin/index.js",
+    "gen-cert": "cd cert; openssl req -new -x509 -sha256 -days 365 -nodes -out concha.crt -keyout concha.key"
   },
   "bin": {
     "concha": "bin/index.js"

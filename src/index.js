@@ -4,18 +4,28 @@
 const app = require('express')()
 const ejs = require('ejs')
 const http = require('http').Server(app)
-const io = require('socket.io')(http)
+const https = require('https')
+const io = require('socket.io')
 const readline = require('readline')
 const routes = require('./routes')
 const path = require('path')
 const config = require('./config')
 const completer = require('./completer')
 const ip = require('ip')
+const fs = require('fs')
 
 module.exports = function (input = process.stdin, output = process.stdout) {
   app.set('view engine', 'js')
   app.engine('js', ejs.renderFile)
   app.set('views', __dirname)
+
+  // load ssl creds
+  const privateKey = fs.readFileSync('cert/concha.key', 'utf8')
+  const certificate = fs.readFileSync('cert/concha.crt', 'utf8')
+  const credentials = {key: privateKey, cert: certificate}
+
+  // init https server
+  const httpsServer = https.createServer(credentials, app)
 
   const localIp = ip.address()
   const host = `${localIp}:${config.serverPort}`
@@ -42,39 +52,40 @@ module.exports = function (input = process.stdin, output = process.stdout) {
   })
 
   // setup socket
-  io.on('connection', function (socket) {
-    rl.clearLine()
-    console.log('- browser connected')
-    rl.clearLine()
-    rl.prompt()
-
-    // print responses
-    socket.on('response', (response) => {
-      console.log(response)
+  io.listen(httpsServer)
+    .on('connection', function (socket) {
+      rl.clearLine()
+      console.log('- browser connected')
+      rl.clearLine()
       rl.prompt()
-    })
 
-    // send every received line thru the socket as a command
-    rl.on('line', (command) => {
-      socket.emit('command', command)
-    })
+      // print responses
+      socket.on('response', (response) => {
+        console.log(response)
+        rl.prompt()
+      })
 
-    // make client load plugins
-    if (config.plugins) {
-      socket.emit('plugins', config.plugins)
-    }
-  })
+      // send every received line thru the socket as a command
+      rl.on('line', (command) => {
+        socket.emit('command', command)
+      })
+
+      // make client load plugins
+      if (config.plugins) {
+        socket.emit('plugins', config.plugins)
+      }
+    })
 
   // start server
-  http.listen(config.serverPort, function () {
+  httpsServer.listen(config.serverPort, function () {
     console.log(`
       LOCAL ACCESS
-      - listening on http://localhost:${config.serverPort}
-      - install http://localhost:${config.serverPort}/install
+      - listening on https://localhost:${config.serverPort}
+      - install https://localhost:${config.serverPort}/install
 
       LAN ACCESS
-      - listening on http://${host}
-      - install http://${host}/install
+      - listening on https://${host}
+      - install https://${host}/install
     `)
   })
 
