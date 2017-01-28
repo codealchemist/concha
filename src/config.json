@@ -2,6 +2,7 @@
   "serverUrl": "http://localhost",
   "serverPort": 7331,
   "plugins": [
-    "deezer"
+    "deezer",
+    "youtube"
   ]
 }
