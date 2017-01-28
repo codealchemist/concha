@@ -125,9 +125,9 @@ class deezerConchaPlugin {
 
   info () {
     return {
-      artist: getArtistName(),
-      album: getAlbumTitle(),
-      song: getSongTitle()
+      artist: this.getArtistName(),
+      album: this.getAlbumTitle(),
+      song: this.getSongTitle()
     }
   }
 
