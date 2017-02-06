@@ -33,9 +33,6 @@ module.exports = function (input = process.stdin, output = process.stdout) {
   // set routes
   routes(app, host)
 
-  // let plugins define their own commands for auto complete
-  loadPluginsAutocomplete()
-
   // set command line interface
   const rl = readline.createInterface({
     input: input,
@@ -53,11 +50,9 @@ module.exports = function (input = process.stdin, output = process.stdout) {
 
   // setup socket
   io.listen(httpsServer)
-    .on('connection', function (socket) {
+    .on('connection', (socket) => {
       rl.clearLine()
       console.log('- browser connected')
-      rl.clearLine()
-      rl.prompt()
 
       // print responses
       socket.on('response', (response) => {
@@ -72,8 +67,22 @@ module.exports = function (input = process.stdin, output = process.stdout) {
 
       // make client load plugins
       if (config.plugins) {
-        socket.emit('plugins', config.plugins)
+        const pluginNames = Object.keys(config.plugins)
+
+        // let plugins define their own commands for auto complete
+        loadPluginsAutocomplete(pluginNames)
+
+        // get valid plugins
+        const referer = socket.handshake.headers.referer
+        console.log('- connected from: ', referer)
+        const plugins = getPluginsForCurrentDomain(referer, pluginNames)
+        console.log('- enabled plugins: ', plugins)
+
+        socket.emit('plugins', plugins)
       }
+
+      rl.clearLine()
+      rl.prompt()
     })
 
   // start server
@@ -89,18 +98,37 @@ module.exports = function (input = process.stdin, output = process.stdout) {
     `)
   })
 
-  function loadPluginsAutocomplete () {
-    if (config.plugins) {
-      // load autocompletions for each plugin
-      config.plugins.map((plugin) => {
-        try {
-          const completions = require(path.join(__dirname, `/plugins/${plugin}.autocomplete.js`))
-          if (completions && Array.isArray(completions)) {
-            completer.add(completions)
-          }
-        } catch (e) {}
+  function loadPluginsAutocomplete (pluginNames) {
+    // load autocompletions for each plugin
+    pluginNames.map((plugin) => {
+      try {
+        const completions = require(path.join(__dirname, `/plugins/${plugin}.autocomplete.js`))
+        if (completions && Array.isArray(completions)) {
+          completer.add(completions)
+        }
+      } catch (e) {}
+    })
+  }
+
+  function getPluginsForCurrentDomain (referer, pluginNames) {
+    const plugins = []
+    pluginNames.map((pluginName) => {
+      const pluginConfig = config.plugins[pluginName]
+
+      // inactive plugin
+      if (!pluginConfig) return
+
+      // loaded for all domains
+      if (!pluginConfig.domains) plugins.push(pluginName)
+      
+      // loaded for current domain
+      const invalidDomain = pluginConfig.domains.some((domain) => {
+        return !referer.match(domain)
       })
-    }
+      if (!invalidDomain) plugins.push(pluginName)
+    })
+
+    return plugins
   }
 
   // interface

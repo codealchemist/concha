@@ -1,8 +1,12 @@
 {
   "serverUrl": "http://localhost",
   "serverPort": 7331,
-  "plugins": [
-    "deezer",
-    "youtube"
-  ]
+  "plugins": {
+    "deezer": {
+      "domains": ["deezer.com"]
+    },
+    "youtube": {
+      "domains": ["youtube.com"]
+    }
+  }
 }
