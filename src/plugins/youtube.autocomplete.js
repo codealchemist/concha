@@ -5,11 +5,13 @@ module.exports = [
   'yt.pause()',
   'yt.next()',
   'yt.prev()',
-  'yt.search()',
+  'yt.search("")',
   'yt.skipAd()',
   'yt.mute()',
   'yt.unmute()',
   'yt.fullscreen()',
   'yt.like()',
-  'yt.unlike()'
+  'yt.unlike()',
+  'yt.info()',
+  'yt.share()'
 ]

@@ -1,7 +1,7 @@
 class youtubeConchaPlugin {
   constructor () {
     // use globals
-    window.yt = {}
+    window.yt = window.yt || {}
     window.yt.play = this.play
     window.yt.pause = this.pause
     window.yt.search = this.search
@@ -13,6 +13,8 @@ class youtubeConchaPlugin {
     window.yt.fullscreen = this.fullscreen
     window.yt.like = this.like
     window.yt.unlike = this.unlike
+    window.yt.info = this.info
+    window.yt.share = this.share
 
     // common ui elements
     this.$muteButton = document.querySelector('.ytp-mute-button')
@@ -84,5 +86,14 @@ class youtubeConchaPlugin {
   unlike () {
     document.querySelector('.like-button-renderer-like-button-clicked').click()
     return 'Unliked.'
+  }
+
+  info () {
+    const info = document.querySelector('.watch-title').innerHTML.trim()
+    return `Playing: ${info}`
+  }
+
+  share () {
+    return location.href
   }
 }
