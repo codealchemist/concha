@@ -37,7 +37,7 @@ class youtubeConchaPlugin {
       document.querySelectorAll('.yt-uix-tile-link')[autoPlayIndex].click()
     }, 2000)
 
-    return `Playing ${terms} #${autoPlayIndex}`
+    return `Playing results for '${terms}' #${autoPlayIndex}`
   }
 
   next () {
