@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard && mocha --recursive --reporter spec",
+    "test-focus": "standard-focus",
     "test-watch": "standard && mocha --watch --recursive --reporter spec",
     "start": "node bin/index.js",
     "gen-cert": "cd cert; openssl req -new -x509 -sha256 -days 365 -nodes -out concha.crt -keyout concha.key"
@@ -24,7 +25,8 @@
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "mock-stdin": "^0.3.1",
-    "standard": "^8.6.0"
+    "standard": "^8.6.0",
+    "standard-focus": "github:codealchemist/standard-focus"
   },
   "repository": {
     "type": "git",

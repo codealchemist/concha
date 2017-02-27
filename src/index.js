@@ -120,7 +120,7 @@ module.exports = function (input = process.stdin, output = process.stdout) {
 
       // loaded for all domains
       if (!pluginConfig.domains) plugins.push(pluginName)
-      
+
       // loaded for current domain
       const invalidDomain = pluginConfig.domains.some((domain) => {
         return !referer.match(domain)
