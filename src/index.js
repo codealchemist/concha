@@ -20,8 +20,8 @@ module.exports = function (input = process.stdin, output = process.stdout) {
   app.set('views', __dirname)
 
   // load ssl creds
-  const privateKey = fs.readFileSync('cert/concha.key', 'utf8')
-  const certificate = fs.readFileSync('cert/concha.crt', 'utf8')
+  const privateKey = fs.readFileSync(path.join(__dirname, '../cert/concha.key'), 'utf8')
+  const certificate = fs.readFileSync(path.join(__dirname, '../cert/concha.crt'), 'utf8')
   const credentials = {key: privateKey, cert: certificate}
 
   // init https server
@@ -120,7 +120,7 @@ module.exports = function (input = process.stdin, output = process.stdout) {
 
       // loaded for all domains
       if (!pluginConfig.domains) plugins.push(pluginName)
-      
+
       // loaded for current domain
       const invalidDomain = pluginConfig.domains.some((domain) => {
         return !referer.match(domain)
