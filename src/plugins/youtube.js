@@ -15,6 +15,7 @@ class youtubeConchaPlugin {
     window.yt.unlike = this.unlike
     window.yt.info = this.info
     window.yt.share = this.share
+    window.yt.seek = this.seek
 
     // common ui elements
     this.$muteButton = document.querySelector('.ytp-mute-button')
@@ -95,5 +96,10 @@ class youtubeConchaPlugin {
 
   share () {
     return location.href
+  }
+
+  seek (seconds) {
+    document.querySelector('video').currentTime = seconds
+    return `Moved to ${seconds} seconds.`
   }
 }
